@@ -1,4 +1,4 @@
-import { createContext, useEffect, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import { faker } from "@faker-js/faker";
 
 function createRandomPost() {
@@ -8,7 +8,7 @@ function createRandomPost() {
   };
 }
 
-const PostContext = createContext(); // A component
+const PostContext = createContext(); // 1)Create a context component
 
 function App() {
   const [posts, setPosts] = useState(() =>
@@ -44,6 +44,7 @@ function App() {
   );
 
   return (
+    // 2) Provide value to child Component
     <PostContext.Provider
       value={{
         posts: searchedPosts,
@@ -53,8 +54,6 @@ function App() {
         setSearchQuery,
       }}
     >
-      {/* Provide value to child Component */}
-
       <section>
         <button
           onClick={() => setIsFakeDark((isFakeDark) => !isFakeDark)}
@@ -63,12 +62,7 @@ function App() {
           {isFakeDark ? "☀️" : "🌙"}
         </button>
 
-        <Header
-          posts={searchedPosts}
-          onClearPosts={handleClearPosts}
-          searchQuery={searchQuery}
-          setSearchQuery={setSearchQuery}
-        />
+        <Header />
         <Main posts={searchedPosts} onAddPost={handleAddPost} />
         <Archive onAddPost={handleAddPost} />
         <Footer />
@@ -77,18 +71,19 @@ function App() {
   );
 }
 
-function Header({ posts, onClearPosts, searchQuery, setSearchQuery }) {
+function Header() {
+  // 3)Consume context value
+  const x = useContext(PostContext);
+  console.log(x);
+
   return (
     <header>
       <h1>
         <span>⚛️</span>The Atomic Blog
       </h1>
       <div>
-        <Results posts={posts} />
-        <SearchPosts
-          searchQuery={searchQuery}
-          setSearchQuery={setSearchQuery}
-        />
+        <Results />
+        <SearchPosts />
         <button onClick={onClearPosts}>Clear posts</button>
       </div>
     </header>
