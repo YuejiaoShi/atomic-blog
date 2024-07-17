@@ -21,21 +21,21 @@ function App() {
   );
 
   return (
-    <PostContext>
-      <section>
-        <button
-          onClick={() => setIsFakeDark((isFakeDark) => !isFakeDark)}
-          className="btn-fake-dark-mode"
-        >
-          {isFakeDark ? "☀️" : "🌙"}
-        </button>
+    <section>
+      <button
+        onClick={() => setIsFakeDark((isFakeDark) => !isFakeDark)}
+        className="btn-fake-dark-mode"
+      >
+        {isFakeDark ? "☀️" : "🌙"}
+      </button>
 
+      <PostContext>
         <Header />
         <Main />
         <Archive />
         <Footer />
-      </section>
-    </PostContext>
+      </PostContext>
+    </section>
   );
 }
 
