@@ -73,8 +73,8 @@ function App() {
 
 function Header() {
   // 3)Consume context value
-  const x = useContext(PostContext);
-  console.log(x);
+  const {onClearPosts} = useContext(PostContext);
+
 
   return (
     <header>
